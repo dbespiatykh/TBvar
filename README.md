@@ -27,7 +27,7 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 ```
 
-Get **RDscan** pipeline:
+Get **TBvar** pipeline:
 
 ```bash
 git clone https://github.com/dbespiatykh/TBvar.git
