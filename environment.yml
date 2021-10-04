@@ -1,0 +1,7 @@
+name: TBvar
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - snakemake
+  - mamba
