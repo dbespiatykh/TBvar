@@ -38,8 +38,7 @@ Get [SpolLineages](https://github.com/dcouvin/SpolLineages):
 ```bash
 cd TBvar && mkdir bin && cd $_
 git clone https://github.com/dcouvin/SpolLineages.git
-cd SpolLineages/Binary_Mask2
-gcc Mask2.c -o Mask2
+cd SpolLineages/Binary_Mask2 && gcc Mask2.c -o Mask2
 ```
 Install required dependencies:
 
