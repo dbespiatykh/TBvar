@@ -61,7 +61,7 @@ cd TBvar
 :point_right: In project folder make `FASTQ` folder:
 
 ```bash
-cd TBvar && mkdir FASTQ
+mkdir FASTQ
 ```
 
 and move to it (symlink) your paired- or single-end [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) reads. Paired-end FASTQ suffix should be: `_1.fastq.gz` and `_2.fastq.gz`, for single-end it should be: `_1.fastq.gz`.
