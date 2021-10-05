@@ -45,6 +45,7 @@ Get SpolLineages:
 ```bash
 cd TBvar
 mkdir bin
+cd bin
 git clone https://github.com/dcouvin/SpolLineages.git
 cd SpolLineages/Binary_Mask2
 gcc Mask2.c -o Mask2
