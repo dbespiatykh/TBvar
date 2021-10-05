@@ -33,13 +33,6 @@ Get **TBvar** pipeline:
 git clone https://github.com/dbespiatykh/TBvar.git
 ```
 
-Install required dependencies:
-
-```bash
-cd TBvar
-conda env create --file environment.yml
-```
-
 Get [SpolLineages](https://github.com/dcouvin/SpolLineages):
 
 ```bash
@@ -47,6 +40,12 @@ cd TBvar && mkdir bin && cd $_
 git clone https://github.com/dcouvin/SpolLineages.git
 cd SpolLineages/Binary_Mask2
 gcc Mask2.c -o Mask2
+```
+Install required dependencies:
+
+```bash
+cd TBvar
+conda env create --file environment.yml
 ```
 
 ## Usage
