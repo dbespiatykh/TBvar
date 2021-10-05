@@ -40,7 +40,7 @@ cd TBvar
 conda env create --file environment.yml
 ```
 
-Get SpolLineages:
+Get [SpolLineages](https://github.com/dcouvin/SpolLineages):
 
 ```bash
 cd TBvar
