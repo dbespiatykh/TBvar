@@ -288,7 +288,10 @@ rule multiqc:
             smp=SAMPLES
             )
     output:
-        "results/qc/multiqc.html"
+        "results/qc/multiqc.html",
+        "results/qc/multiqc_data/multiqc_picard_dups.txt",
+        "results/qc/multiqc_data/multiqc_samtools_stats.txt",
+        "results/qc/multiqc_data/multiqc_fastqc.txt",
     log:
         "logs/multiqc.log"
     wrapper:
