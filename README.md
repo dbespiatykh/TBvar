@@ -58,7 +58,13 @@ conda activate TBvar
 cd TBvar
 ```
 
-:point_right: In project folder make `FASTQ` folder and move to it (symlink) your paired- or single-end [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) reads. Paired-end FASTQ suffix should be: `_1.fastq.gz` and `_2.fastq.gz`, for single-end it should be: `_1.fastq.gz`.
+:point_right: In project folder make `FASTQ` folder:
+
+```bash
+cd TBvar && mkdir FASTQ
+```
+
+and move to it (symlink) your paired- or single-end [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) reads. Paired-end FASTQ suffix should be: `_1.fastq.gz` and `_2.fastq.gz`, for single-end it should be: `_1.fastq.gz`.
 
 > If you are using both PE and SE reads, firts time you run the pipleine it will throw an error `AmbiguousRuleException:...`, just ignore it and run it again.
 
