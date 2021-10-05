@@ -67,6 +67,61 @@ and move to it (symlink) your paired- or single-end [FASTQ](https://en.wikipedia
 
 > If you are using both PE and SE reads, firts time you run the pipleine it will throw an error `AmbiguousRuleException:...`, just ignore it and run it again.
 
+Project folder should have the following structure:
+
+```bash
+📂TBvar/
+├── FASTQ
+│   ├── SampleA_1.fastq.gz
+|   ├── SampleA_2.fastq.gz
+|   ├── SampleB_1.fastq.gz
+|   └── ...
+├── LICENSE
+├── README.md
+├── Snakefile
+├── bin
+│   └── SpolLineages
+│       ├── Binary_Mask2
+|       ├── ...
+|       ...
+├── environment.yml
+├── envs
+│   ├── barcoding.yaml
+│   ├── bcftools.yaml
+│   ├── rtg_tools.yaml
+│   ├── snpit.yaml
+│   ├── spollineages.yaml
+│   ├── spotyping.yaml
+│   └── tb_profiler.yaml
+├── ref
+│   ├── NC_000962.3.dict
+│   ├── NC_000962.3.fna
+│   ├── NC_000962.3.fna.amb
+│   ├── NC_000962.3.fna.ann
+│   ├── NC_000962.3.fna.bwt
+│   ├── NC_000962.3.fna.fai
+│   ├── NC_000962.3.fna.pac
+│   ├── NC_000962.3.fna.sa
+│   └── tbdb
+│       ├── tbdb.ann.txt
+│       ├── tbdb.barcode.bed
+│       ├── tbdb.bed
+│       ├── tbdb.confidence.csv
+│       ├── tbdb.csv
+│       ├── tbdb.dr.json
+│       ├── tbdb.fasta
+│       ├── tbdb.fasta.fai
+│       ├── tbdb.gff
+│       ├── tbdb.version.json
+│       └── tbdb.watchlist.csv
+└──scripts
+    ├── aggregate.py
+    ├── concat.py
+    ├── gather_spol.py
+    ├── read_vcf_v3.py
+    └── rtg_concat.py
+```
+
 Run pipeline:
 
 ```bash
