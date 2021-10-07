@@ -251,6 +251,23 @@ rule samtools_stats:
     wrapper:
         "0.77.0/bio/samtools/stats"
 
+## Run mosdepth
+rule mosdepth:
+    input:
+        bam="BAM/{smp}.bam",
+        bai="BAM/{smp}.bam.bai",
+    output:
+        "stats/mosdepth/{smp}.mosdepth.global.dist.txt",
+        "stats/mosdepth/{smp}.per-base.bed.gz",
+        summary="stats/mosdepth/{smp}.mosdepth.summary.txt",
+    log:
+        "logs/mosdepth/{smp}.log",
+    params:
+        extra="--fast-mode",
+    threads: 4
+    wrapper:
+        "0.78.0/bio/mosdepth"
+
 
 ## Run rtg vcfstats
 rule rtg_vcfstats:
@@ -283,7 +300,8 @@ rule multiqc:
         expand(
             ["stats/samtools_stats/{smp}.txt",
             "stats/fastqc/{smp}_fastqc.zip",
-            "stats/picard/{smp}.metrics.txt"
+            "stats/picard/{smp}.metrics.txt",
+            "stats/mosdepth/{smp}.mosdepth.global.dist.txt"
             ],
             smp=SAMPLES
             )
