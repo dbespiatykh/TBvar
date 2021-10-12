@@ -45,7 +45,7 @@ Install required dependencies:
 ```bash
 conda install -c conda-forge mamba
 cd TBvar
-conda env create --file environment.yml
+mamba env create --file environment.yml
 ```
 
 ## Usage
