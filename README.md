@@ -43,6 +43,7 @@ cd SpolLineages/Binary_Mask2 && gcc Mask2.c -o Mask2
 Install required dependencies:
 
 ```bash
+conda install -c conda-forge mamba
 cd TBvar
 conda env create --file environment.yml
 ```
