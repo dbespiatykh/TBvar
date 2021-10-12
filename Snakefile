@@ -310,6 +310,7 @@ rule multiqc:
         "results/qc/multiqc_data/multiqc_picard_dups.txt",
         "results/qc/multiqc_data/multiqc_samtools_stats.txt",
         "results/qc/multiqc_data/multiqc_fastqc.txt",
+        "results/qc/multiqc_data/mqc_mosdepth-coverage-per-contig_1.txt",
     log:
         "logs/multiqc.log"
     wrapper:
@@ -447,8 +448,8 @@ rule aggregate_results:
        "stats/rtg_vcfstats/vcf_stats.tsv",
        "results/qc/multiqc_data/multiqc_fastqc.txt",
        "results/qc/multiqc_data/multiqc_samtools_stats.txt",
-       "results/qc/multiqc_data/multiqc_picard_dups.txt",
        "results/mtbc_barcodes.tsv",
+       "results/qc/multiqc_data/mqc_mosdepth-coverage-per-contig_1.txt",
        "results/mtbc_spoligotypes_annotated.tsv",
        "results/tb_profiler/tbprofiler.txt",
     output:
