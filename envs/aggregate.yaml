@@ -1,0 +1,9 @@
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python
+  - pandas
+  - pip
+  - pip:
+    - xlsxwriter
