@@ -455,6 +455,6 @@ rule aggregate_results:
     output:
         "results/tbvar_results.xlsx",
     conda:
-        "envs/barcoding.yaml"
+        "envs/aggregate.yaml"
     script:
         "scripts/aggregate.py"
