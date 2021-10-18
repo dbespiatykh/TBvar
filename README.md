@@ -89,7 +89,7 @@ Project folder should have the following structure:
 │   ├── barcoding.yaml
 │   ├── bcftools.yaml
 │   ├── rtg_tools.yaml
-│   ├── snpit.yaml
+│   ├── aggregate.yaml
 │   ├── spollineages.yaml
 │   ├── spotyping.yaml
 │   └── tb_profiler.yaml
