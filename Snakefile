@@ -1,13 +1,5 @@
-import os
 import glob
-import time
-import shutil
-import ntpath
-import datetime
-import numpy as np
-import pandas as pd
 
-t_start = time.time()
 
 ## Setting order of rules
 ruleorder: BWA_MEM_pe > BWA_MEM_se
@@ -22,7 +14,7 @@ ruleorder: spotyping_pe > spotyping_se
 
 
 ## ------------------------------------------------------------------------------------ ##
-## Workflow rule
+## Target rule
 ## ------------------------------------------------------------------------------------ ##
 rule all:
     input:
@@ -36,7 +28,7 @@ rule all:
         "results/tbvar_results.xlsx",
 
 ## ------------------------------------------------------------------------------------ ##
-## Rules
+## Workflow rules
 ## ------------------------------------------------------------------------------------ ##
 
 
