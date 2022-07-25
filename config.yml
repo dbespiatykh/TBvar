@@ -1,0 +1,27 @@
+# Adjust these parameters based on your setup
+
+# Email required by NCBI
+email: "d.bespiatykh@gmail.com"
+
+# Threads for BWA-MEM
+bwa_threads: 2
+
+# Memory for Picard MarkDuplicates in mb
+markdup_mem: 1024
+
+# Memory for GATK HaplotypeCaller in mb
+hapcall_mem: 1024
+# Threads for GATK HaplotypeCaller in mb
+hapcall_threads: 2
+
+# Memory for GATK GenomicsDBImport in mb
+gendb_mem: 10240
+
+# Memory for GATK GenotypeGVCFs in mb
+genotype_mem: 10240
+
+# Memory for GATK VariantFiltration in mb
+filter_mem: 10240
+
+# Memory for GATK SelectVariants in mb
+select_mem: 1024

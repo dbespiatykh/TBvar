@@ -1,6 +1,6 @@
-- [Description](#Description)
-- [Installation](#Installation)
-- [Usage](#Usage)
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
 
 ## Description
 
@@ -33,13 +33,6 @@ Get **TBvar** pipeline:
 git clone https://github.com/dbespiatykh/TBvar.git
 ```
 
-Get [SpolLineages](https://github.com/dcouvin/SpolLineages):
-
-```bash
-cd TBvar && mkdir bin && cd $_
-git clone https://github.com/dcouvin/SpolLineages.git
-cd SpolLineages/Binary_Mask2 && gcc Mask2.c -o Mask2 && cd ../../../
-```
 Install required dependencies:
 
 ```bash
@@ -71,54 +64,29 @@ Project folder should have the following structure:
 ```
 📂TBvar/
 ├── FASTQ
-│   ├── SampleA_1.fastq.gz
-|   ├── SampleA_2.fastq.gz
-|   ├── SampleB_1.fastq.gz
-|   └── ...
+│   ├── SAMPLE-A_1.fastq.gz
+│   ├── SAMPLE-A_2.fastq.gz
+│   ├── SAMPLE-B_1.fastq.gz
+│   ├── SAMPLE-B_2.fastq.gz
+│   ├── SAMPLE-C_1.fastq.gz
+│   └── SAMPLE-C_2.fastq.gz
+├── barcodes
+│   └── barcodes.tsv
+├── envs
+│   ├── barcoding.yaml
+│   └── gatk4.yaml
+├── rules
+│   ├── barcoding.smk
+│   ├── calling.smk
+│   ├── mapping.smk
+│   └── reference.smk
+├── scripts
+│   └── barcoding.py
 ├── LICENSE
 ├── README.md
 ├── Snakefile
-├── bin
-│   └── SpolLineages
-│       ├── Binary_Mask2
-|       ├── ...
-|       ...
-├── environment.yml
-├── envs
-│   ├── barcoding.yaml
-│   ├── bcftools.yaml
-│   ├── rtg_tools.yaml
-│   ├── aggregate.yaml
-│   ├── spollineages.yaml
-│   ├── spotyping.yaml
-│   └── tb_profiler.yaml
-├── ref
-│   ├── NC_000962.3.dict
-│   ├── NC_000962.3.fna
-│   ├── NC_000962.3.fna.amb
-│   ├── NC_000962.3.fna.ann
-│   ├── NC_000962.3.fna.bwt
-│   ├── NC_000962.3.fna.fai
-│   ├── NC_000962.3.fna.pac
-│   ├── NC_000962.3.fna.sa
-│   └── tbdb
-│       ├── tbdb.ann.txt
-│       ├── tbdb.barcode.bed
-│       ├── tbdb.bed
-│       ├── tbdb.confidence.csv
-│       ├── tbdb.csv
-│       ├── tbdb.dr.json
-│       ├── tbdb.fasta
-│       ├── tbdb.fasta.fai
-│       ├── tbdb.gff
-│       ├── tbdb.version.json
-│       └── tbdb.watchlist.csv
-└──scripts
-    ├── aggregate.py
-    ├── concat.py
-    ├── gather_spol.py
-    ├── read_vcf_v3.py
-    └── rtg_concat.py
+├── config.json
+└── environment.yml
 ```
 
 Run pipeline:
@@ -130,5 +98,5 @@ snakemake --conda-frontend mamba --use-conda -j 48 -c 48 --max-threads 48 -k --r
 It is recommended to use dry run if you are running pipeline for the first time, to see if everything is in working order, for this you can use `-n` flag:
 
 ```bash
-snakemake --conda-frontend mamba --use-conda -j 48 -c 48 --max-threads 48 -k --rerun-incomplete -np
+snakemake --conda-frontend mamba --use-conda -j 48 -c 48 --max-threads 48 -k -np
 ```
