@@ -82,10 +82,8 @@ Project folder should have the following structure:
 │   └── reference.smk
 ├── scripts
 │   └── barcoding.py
-├── LICENSE
-├── README.md
 ├── Snakefile
-├── config.json
+├── config.yml
 └── environment.yml
 ```
 
