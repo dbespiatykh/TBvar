@@ -2,7 +2,7 @@
 rule barcode_samples:
     input:
         "Results/all.snps.pass.txt",
-        "barcodes/barcodes.tsv"
+        "barcodes/barcodes.tsv",
     output:
         "Results/all.snps.pass.barcoded.tsv",
     conda:

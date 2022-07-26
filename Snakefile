@@ -1,6 +1,8 @@
 ## Configuration file ----------------------------------------
 
+
 configfile: "config.yml"
+
 
 ## Set samples -----------------------------------------------
 
@@ -8,13 +10,16 @@ configfile: "config.yml"
 
 ## Target rule -----------------------------------------------
 
+
 rule all:
     input:
         "Results/all.snps.pass.barcoded.tsv",
 
+
 ## Workflow rules --------------------------------------------
 
-include: "rules/reference.smk",
-include: "rules/mapping.smk",
-include: "rules/calling.smk",
+
+include: "rules/reference.smk"
+include: "rules/mapping.smk"
+include: "rules/calling.smk"
 include: "rules/barcoding.smk"

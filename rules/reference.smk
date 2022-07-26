@@ -1,4 +1,5 @@
 from snakemake.remote.NCBI import RemoteProvider as NCBIRemoteProvider
+
 NCBI = NCBIRemoteProvider(email=config["email"])
 
 

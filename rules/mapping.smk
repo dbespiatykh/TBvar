@@ -1,15 +1,16 @@
 ## Setting order of rules
 ruleorder: BWA_MEM_pe > BWA_MEM_se
 
+
 ## Map PE reads
 rule BWA_MEM_pe:
     input:
         reads=["FASTQ/{smp}_1.fastq.gz", "FASTQ/{smp}_2.fastq.gz"],
         idx=multiext("ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        temp("BAM/{smp}.raw.bam")
+        temp("BAM/{smp}.raw.bam"),
     log:
-        "logs/bwa_mem/{smp}.log"
+        "logs/bwa_mem/{smp}.log",
     params:
         extra=r"-R '@RG\tID:{smp}\tSM:{smp}'",
         sorting="samtools",
@@ -25,9 +26,9 @@ rule BWA_MEM_se:
         reads="FASTQ/{smp}_1.fastq.gz",
         idx=multiext("ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        temp("BAM/{smp}.raw.bam")
+        temp("BAM/{smp}.raw.bam"),
     log:
-        "logs/bwa_mem/{smp}.log"
+        "logs/bwa_mem/{smp}.log",
     params:
         extra=r"-R '@RG\tID:{smp}\tSM:{smp}'",
         sorting="samtools",
@@ -40,16 +41,16 @@ rule BWA_MEM_se:
 ## Remove duplicate reads
 rule mark_duplicates:
     input:
-        bams="BAM/{smp}.raw.bam"
+        bams="BAM/{smp}.raw.bam",
     output:
         bam="BAM/{smp}.bam",
-        metrics="stats/picard/{smp}.metrics.txt"
+        metrics="stats/picard/{smp}.metrics.txt",
     log:
-        "logs/picard/dedup/{smp}.log"
+        "logs/picard/dedup/{smp}.log",
     params:
-        "REMOVE_DUPLICATES=true"
+        "REMOVE_DUPLICATES=true",
     resources:
-        mem_mb=config["markdup_mem"]
+        mem_mb=config["markdup_mem"],
     wrapper:
         "v1.7.1/bio/picard/markduplicates"
 

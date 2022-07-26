@@ -9,12 +9,12 @@ rule haplotype_caller:
     output:
         gvcf="VCF/{smp}.g.vcf.gz",
     log:
-        "logs/gatk/haplotypecaller/{smp}.log"
+        "logs/gatk/haplotypecaller/{smp}.log",
     params:
         extra="-ploidy 1 -mbq 20",
     threads: config["hapcall_threads"]
     resources:
-        mem_mb=config["hapcall_mem"]
+        mem_mb=config["hapcall_mem"],
     wrapper:
         "v1.7.1/bio/gatk/haplotypecaller"
 
@@ -26,13 +26,13 @@ rule genomics_db_import:
     output:
         db=directory("db"),
     log:
-        "logs/gatk/genomicsdbimport.log"
+        "logs/gatk/genomicsdbimport.log",
     params:
         intervals="NC_000962.3",
         db_action="create",
         extra="--batch-size 100",
     resources:
-        mem_mb=config["gendb_mem"]
+        mem_mb=config["gendb_mem"],
     wrapper:
         "v1.7.1/bio/gatk/genomicsdbimport"
 
@@ -45,13 +45,14 @@ rule genotype_gvcfs:
     output:
         vcf="VCF/all.vcf.gz",
     log:
-        "logs/gatk/genotypegvcfs.log"
+        "logs/gatk/genotypegvcfs.log",
     params:
         extra="-ploidy 1",
     resources:
-        mem_mb=config["genotype_mem"]
+        mem_mb=config["genotype_mem"],
     wrapper:
         "v1.7.1/bio/gatk/genotypegvcfs"
+
 
 ## Filter SNPs
 rule gatk_filter:
@@ -61,11 +62,11 @@ rule gatk_filter:
     output:
         vcf="VCF/all.filtered.vcf.gz",
     log:
-        "logs/gatk/filter/snps.filter.log"
+        "logs/gatk/filter/snps.filter.log",
     params:
         filters={"Failfilter": "QD < 2.0 || DP < 10 || FS > 60.0 || MQ < 40.0"},
     resources:
-        mem_mb=config["filter_mem"]
+        mem_mb=config["filter_mem"],
     wrapper:
         "v1.7.1/bio/gatk/variantfiltration"
 
@@ -78,11 +79,11 @@ rule gatk_select_passed:
     output:
         vcf="VCF/all.snps.pass.vcf.gz",
     log:
-        "logs/gatk/select/snps.pass.log"
+        "logs/gatk/select/snps.pass.log",
     params:
         extra="--exclude-filtered --select-type-to-include SNP",
     resources:
-        mem_mb=config["select_mem"]
+        mem_mb=config["select_mem"],
     wrapper:
         "v1.7.1/bio/gatk/selectvariants"
 
@@ -96,7 +97,7 @@ rule gatk_variants_to_table:
     conda:
         "../envs/gatk4.yaml"
     log:
-        "logs/gatk/vartotable/vars2table.log"
+        "logs/gatk/vartotable/vars2table.log",
     shell:
         "gatk VariantsToTable \
         -V {input.vcf} \
