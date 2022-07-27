@@ -1,4 +1,4 @@
-## Map PE reads
+## Map PE/SE reads
 rule bwa_mem_mapping:
     input:
         reads=get_fastq,
