@@ -1,6 +1,6 @@
 # General settings
 
-Following the explanations in the `config.yml`, you should modify the it according to your needs.
+Following the explanations in the `config.yml`, you should modify it according to your needs.
 
 # Samples sheet
 
