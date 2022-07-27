@@ -4,6 +4,8 @@
 
 ## Description
 
+A snakemake workflow for variant calling and lineage barcoding of the _Mycobacterium tuberculosis_ samples.
+
 ## Installation
 
 Use the [Conda](https://docs.conda.io/en/latest/) package manager and [BioConda](https://bioconda.github.io/index.html) channel to install TBvar.
@@ -49,43 +51,16 @@ conda activate TBvar
 cd TBvar
 ```
 
-:point_right: In project folder make `FASTQ` folder:
+:point_right: In `config` folder edit `config.yml` and add your `samples.tsv` table location, it should be formatted like this:
 
-```bash
-mkdir FASTQ
-```
+| Run_accession | R1                          | R2                          |
+| ------------- | --------------------------- | --------------------------- |
+| SRR2024996    | FASTQ/SRR2024996_1.fastq.gz | FASTQ/SRR2024996_2.fastq.gz |
+| SRR2024925    | FASTQ/SRR2024925_1.fastq.gz | FASTQ/SRR2024925_2.fastq.gz |
 
-and move to it (symlink) your paired- or single-end [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) reads. Paired-end FASTQ suffix should be: `_1.fastq.gz` and `_2.fastq.gz`, for single-end it should be: `_1.fastq.gz`.
-
-> If you are using both PE and SE reads, firts time you run the pipleine it might throw an error `AmbiguousRuleException:...`, just ignore it and run it again.
-
-Project folder should have the following structure:
-
-```
-📂TBvar/
-├── FASTQ
-│   ├── SAMPLE-A_1.fastq.gz
-│   ├── SAMPLE-A_2.fastq.gz
-│   ├── SAMPLE-B_1.fastq.gz
-│   ├── SAMPLE-B_2.fastq.gz
-│   ├── SAMPLE-C_1.fastq.gz
-│   └── SAMPLE-C_2.fastq.gz
-├── barcodes
-│   └── barcodes.tsv
-├── envs
-│   ├── barcoding.yaml
-│   └── gatk4.yaml
-├── rules
-│   ├── barcoding.smk
-│   ├── calling.smk
-│   ├── mapping.smk
-│   └── reference.smk
-├── scripts
-│   └── barcoding.py
-├── Snakefile
-├── config.yml
-└── environment.yml
-```
+**Run_accession** - Run accession number or sample name;\
+**R1** - Path to the first read pair;\
+**R2** - Path to the second read pair.
 
 Run pipeline:
 
@@ -96,5 +71,5 @@ snakemake --conda-frontend mamba --use-conda -j 48 -c 48 --max-threads 48 -k --r
 It is recommended to use dry run if you are running pipeline for the first time, to see if everything is in working order, for this you can use `-n` flag:
 
 ```bash
-snakemake --conda-frontend mamba --use-conda -j 48 -c 48 --max-threads 48 -k -np
+snakemake --conda-frontend mamba -np
 ```
