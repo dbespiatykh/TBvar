@@ -8,6 +8,8 @@ rule download_genome:
         NCBI.remote("NC_000962.3.fasta", db="nuccore"),
     output:
         "ref/NC_000962.3.fa",
+    log:
+        "logs/ncbi/ref_dwn.log",
     run:
         shell("cat {input} > {output}")
 

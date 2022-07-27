@@ -5,6 +5,8 @@ rule barcode_samples:
         config["files"]["barcodes"],
     output:
         "results/all.snps.pass.barcoded.tsv",
+    log:
+        "logs/barcoding/barcoding.log",
     conda:
         "../envs/barcoding.yaml"
     script:
