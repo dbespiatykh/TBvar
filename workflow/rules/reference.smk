@@ -1,6 +1,6 @@
 from snakemake.remote.NCBI import RemoteProvider as NCBIRemoteProvider
 
-NCBI = NCBIRemoteProvider(email=config["email"])
+NCBI = NCBIRemoteProvider(email=config["NCBI"]["email"])
 
 
 rule download_genome:

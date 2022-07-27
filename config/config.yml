@@ -1,15 +1,14 @@
-# Adjust these parameters based on your setup
+# You can adjust the parameters according to your setup
 
 files:
-  samples: config/samples.tsv # Path to the samples tab-delimited file
-  barcodes: workflow/barcodes/barcodes.tsv # Barcodes
+  samples: config/samples.tsv # The path to the tab-separated values file containing the paths to the analysed samples
+  barcodes: workflow/barcodes/barcodes.tsv # A tab-separated values file with barcoding SNPs
 
-# Email required by NCBI
-email: user@mail.com
+NCBI:
+  email: user@mail.com # Email required by NCBI to avoid abuse
 
-# Threads for BWA-MEM
 BWA:
-  threads: 2
+  threads: 2 # Threads for BWA-MEM
 
 GATK:
   markdup:
