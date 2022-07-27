@@ -22,9 +22,9 @@ rule haplotype_caller:
 ## Import VCFs to GenomicsDB
 rule genomics_db_import:
     input:
-        gvcfs=expand("VCF/{smp}.g.vcf.gz", smp=SAMPLES),
+        gvcfs=expand("VCF/{smp}.g.vcf.gz", smp=samples.index),
     output:
-        db=directory("db"),
+        db=temp(directory("db")),
     log:
         "logs/gatk/genomicsdbimport.log",
     params:
@@ -93,7 +93,7 @@ rule gatk_variants_to_table:
     input:
         vcf="VCF/all.snps.pass.vcf.gz",
     output:
-        tab="Results/all.snps.pass.txt",
+        tab="results/all.snps.pass.txt",
     conda:
         "../envs/gatk4.yaml"
     log:

@@ -1,5 +1,11 @@
 # Adjust these parameters based on your setup
 
+# Path to the samples tab-delimited file
+smp_file: "config/samples.tsv"
+
+# Barcodes
+barcodes: "workflow/barcodes/barcodes.tsv"
+
 # Email required by NCBI
 email: "user@mail.com"
 

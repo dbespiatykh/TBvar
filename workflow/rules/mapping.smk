@@ -1,14 +1,13 @@
 ## Setting order of rules
-ruleorder: BWA_MEM_pe > BWA_MEM_se
-
+ruleorder: BWA_MEM_pe > BWA_MEM_se > mark_duplicates
 
 ## Map PE reads
 rule BWA_MEM_pe:
     input:
-        reads=["FASTQ/{smp}_1.fastq.gz", "FASTQ/{smp}_2.fastq.gz"],
+        reads=[get_fastq(sample)["R1"], get_fastq(sample)["R2"]],
         idx=multiext("ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        temp("BAM/{smp}.raw.bam"),
+        temp("BAM/{smp}.srt.bam"),
     log:
         "logs/bwa_mem/{smp}.log",
     params:
@@ -23,10 +22,10 @@ rule BWA_MEM_pe:
 ## Map SE reads
 rule BWA_MEM_se:
     input:
-        reads="FASTQ/{smp}_1.fastq.gz",
+        reads=get_fastq(sample)["R1"],
         idx=multiext("ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        temp("BAM/{smp}.raw.bam"),
+        temp("BAM/{smp}.srt.bam"),
     log:
         "logs/bwa_mem/{smp}.log",
     params:
@@ -41,7 +40,7 @@ rule BWA_MEM_se:
 ## Remove duplicate reads
 rule mark_duplicates:
     input:
-        bams="BAM/{smp}.raw.bam",
+        bams="BAM/{smp}.srt.bam",
     output:
         bam="BAM/{smp}.bam",
         metrics="stats/picard/{smp}.metrics.txt",

@@ -1,19 +1,11 @@
-## Configuration file ----------------------------------------
-
-
-configfile: "config.yml"
-
-
-## Set samples -----------------------------------------------
-
-(SAMPLES,) = glob_wildcards("FASTQ/{smp}_1.fastq.gz")
+include: "rules/common.smk"
 
 ## Target rule -----------------------------------------------
 
 
 rule all:
     input:
-        "Results/all.snps.pass.barcoded.tsv",
+        "results/all.snps.pass.barcoded.tsv",
 
 
 ## Workflow rules --------------------------------------------
