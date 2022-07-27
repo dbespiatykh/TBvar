@@ -53,10 +53,11 @@ cd TBvar
 
 :point_right: In `config` folder edit `config.yml` and add your `samples.tsv` table location, it should be formatted like this:
 
-| Run_accession | R1                          | R2                          |
-| ------------- | --------------------------- | --------------------------- |
-| SRR2024996    | FASTQ/SRR2024996_1.fastq.gz | FASTQ/SRR2024996_2.fastq.gz |
-| SRR2024925    | FASTQ/SRR2024925_1.fastq.gz | FASTQ/SRR2024925_2.fastq.gz |
+| Run_accession | R1                             | R2                             |
+| ------------- | ------------------------------ | ------------------------------ |
+| SRR2024996    | /path/to/SRR2024996_1.fastq.gz | /path/to/SRR2024996_2.fastq.gz |
+| SRR2024925    | /path/to/SRR2024925_1.fastq.gz | /path/to/SRR2024925_2.fastq.gz |
+| SRR12882189   | /path/to/SRR12882189.fastq.gz  |                                |
 
 **Run_accession** - Run accession number or sample name;\
 **R1** - Path to the first read pair;\

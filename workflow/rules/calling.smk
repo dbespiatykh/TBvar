@@ -1,30 +1,30 @@
 ## Call variants
-rule haplotype_caller:
+rule gatk_haplotype_caller:
     input:
-        bam="BAM/{smp}.bam",
-        idx="BAM/{smp}.bam.bai",
+        bam="BAM/{sample}.bam",
+        idx="BAM/{sample}.bam.bai",
         ref="ref/NC_000962.3.fa",
         fai="ref/NC_000962.3.fa.fai",
         dic="ref/NC_000962.3.dict",
     output:
-        gvcf="VCF/{smp}.g.vcf.gz",
+        gvcf="VCF/gVCF/{sample}.g.vcf.gz",
     log:
-        "logs/gatk/haplotypecaller/{smp}.log",
+        "logs/gatk/haplotypecaller/{sample}.log",
     params:
         extra="-ploidy 1 -mbq 20",
-    threads: config["GATK"]["hapcall"]["threads"],
+    threads: config["GATK"]["hapcall"]["threads"]
     resources:
-        mem_mb=config["GATK"]["hapcall"]["memory"]
+        mem_mb=config["GATK"]["hapcall"]["memory"],
     wrapper:
         "v1.7.1/bio/gatk/haplotypecaller"
 
 
 ## Import gVCFs to GenomicsDB
-rule genomics_db_import:
+rule gatk_genomics_db_import:
     input:
-        gvcfs=expand("VCF/{smp}.g.vcf.gz", smp=samples.index),
+        gvcfs=expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index),
     output:
-        db=temp(directory("db")),
+        db=temp(directory("VCF/db")),
     log:
         "logs/gatk/genomicsdbimport.log",
     params:
@@ -38,9 +38,9 @@ rule genomics_db_import:
 
 
 ## Genotype Variants
-rule genotype_gvcfs:
+rule gatk_genotype_gvcfs:
     input:
-        genomicsdb="db",
+        genomicsdb="VCF/db",
         ref="ref/NC_000962.3.fa",
     output:
         vcf="VCF/all.vcf.gz",
@@ -55,7 +55,7 @@ rule genotype_gvcfs:
 
 
 ## Filter SNPs
-rule gatk_filter:
+rule gatk_filter_variants:
     input:
         vcf="VCF/all.vcf.gz",
         ref="ref/NC_000962.3.fa",
@@ -72,7 +72,7 @@ rule gatk_filter:
 
 
 ## Select only PASS SNPs
-rule gatk_select_passed:
+rule gatk_select_variants:
     input:
         vcf="VCF/all.filtered.vcf.gz",
         ref="ref/NC_000962.3.fa",

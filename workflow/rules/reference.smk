@@ -25,7 +25,7 @@ rule samtools_genome_index:
         "v1.7.1/bio/samtools/faidx"
 
 
-rule create_dict:
+rule picard_create_dict:
     input:
         "ref/NC_000962.3.fa",
     output:

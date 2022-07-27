@@ -1,12 +1,24 @@
 import pandas as pd
 
+
 configfile: "config/config.yml"
-samples = pd.read_csv(config["files"]["samples"], dtype=str, sep="\t").set_index(
-    "Run_accession", drop=False
+
+
+samples = (
+    pd.read_csv(
+        config["files"]["samples"],
+        sep="\t",
+        dtype=str,
+    )
+    .set_index(["Run_accession"], drop=False)
+    .sort_index()
 )
 
-sample = samples.index.to_list()[0]
 
+def get_fastq(wildcards):
+    sample = samples.loc[wildcards.sample]
 
-def get_fastq(wildcard):
-    return samples.loc[wildcard, ["R1", "R2"]].dropna().to_dict()
+    if pd.isna(sample["R2"]):
+        return [sample["R1"]]
+    else:
+        return [sample["R1"], sample["R2"]]
