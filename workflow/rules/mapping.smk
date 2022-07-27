@@ -14,7 +14,7 @@ rule BWA_MEM_pe:
         extra=r"-R '@RG\tID:{smp}\tSM:{smp}'",
         sorting="samtools",
         sort_order="coordinate",
-    threads: config["bwa_threads"]
+    threads: config["BWA"]["threads"]
     wrapper:
         "v1.7.1/bio/bwa/mem"
 
@@ -32,12 +32,12 @@ rule BWA_MEM_se:
         extra=r"-R '@RG\tID:{smp}\tSM:{smp}'",
         sorting="samtools",
         sort_order="coordinate",
-    threads: config["bwa_threads"]
+    threads: config["BWA"]["threads"]
     wrapper:
         "v1.7.1/bio/bwa/mem"
 
 
-## Remove duplicate reads
+## Remove duplicated reads
 rule mark_duplicates:
     input:
         bams="BAM/{smp}.srt.bam",
@@ -49,7 +49,7 @@ rule mark_duplicates:
     params:
         "REMOVE_DUPLICATES=true",
     resources:
-        mem_mb=config["markdup_mem"],
+        mem_mb=config["GATK"]["markdup"]["memory"],
     wrapper:
         "v1.7.1/bio/picard/markduplicates"
 

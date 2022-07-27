@@ -12,14 +12,14 @@ rule haplotype_caller:
         "logs/gatk/haplotypecaller/{smp}.log",
     params:
         extra="-ploidy 1 -mbq 20",
-    threads: config["hapcall_threads"]
+    threads: config["GATK"]["hapcall"]["threads"],
     resources:
-        mem_mb=config["hapcall_mem"],
+        mem_mb=config["GATK"]["hapcall"]["memory"]
     wrapper:
         "v1.7.1/bio/gatk/haplotypecaller"
 
 
-## Import VCFs to GenomicsDB
+## Import gVCFs to GenomicsDB
 rule genomics_db_import:
     input:
         gvcfs=expand("VCF/{smp}.g.vcf.gz", smp=samples.index),
@@ -32,12 +32,12 @@ rule genomics_db_import:
         db_action="create",
         extra="--batch-size 100",
     resources:
-        mem_mb=config["gendb_mem"],
+        mem_mb=config["GATK"]["gendb"]["memory"],
     wrapper:
         "v1.7.1/bio/gatk/genomicsdbimport"
 
 
-## Genortype Variants
+## Genotype Variants
 rule genotype_gvcfs:
     input:
         genomicsdb="db",
@@ -49,7 +49,7 @@ rule genotype_gvcfs:
     params:
         extra="-ploidy 1",
     resources:
-        mem_mb=config["genotype_mem"],
+        mem_mb=config["GATK"]["genotype"]["memory"],
     wrapper:
         "v1.7.1/bio/gatk/genotypegvcfs"
 
@@ -66,12 +66,12 @@ rule gatk_filter:
     params:
         filters={"Failfilter": "QD < 2.0 || DP < 10 || FS > 60.0 || MQ < 40.0"},
     resources:
-        mem_mb=config["filter_mem"],
+        mem_mb=config["GATK"]["filter"]["memory"],
     wrapper:
         "v1.7.1/bio/gatk/variantfiltration"
 
 
-## Select only PASS variants
+## Select only PASS SNPs
 rule gatk_select_passed:
     input:
         vcf="VCF/all.filtered.vcf.gz",
@@ -83,12 +83,12 @@ rule gatk_select_passed:
     params:
         extra="--exclude-filtered --select-type-to-include SNP",
     resources:
-        mem_mb=config["select_mem"],
+        mem_mb=config["GATK"]["select"]["memory"],
     wrapper:
         "v1.7.1/bio/gatk/selectvariants"
 
 
-## Variants to table
+## Refactor Variants to Table
 rule gatk_variants_to_table:
     input:
         vcf="VCF/all.snps.pass.vcf.gz",

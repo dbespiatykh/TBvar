@@ -1,7 +1,7 @@
 import pandas as pd
 
 configfile: "config/config.yml"
-samples = pd.read_csv(config["smp_file"], dtype=str, sep="\t").set_index(
+samples = pd.read_csv(config["files"]["samples"], dtype=str, sep="\t").set_index(
     "Run_accession", drop=False
 )
 
