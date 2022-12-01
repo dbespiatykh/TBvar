@@ -29,8 +29,12 @@ ref_e = df["REF"].values[:, None]
 alt_e = df["ALT"].values[:, None]
 
 df["lineage"] = np.dot(
-    np.logical_and(
-        np.equal(pos_b, pos_e), np.equal(ref_b, ref_e), np.equal(alt_b, alt_e)
+    np.logical_and.reduce(
+        [
+        np.equal(pos_b, pos_e),
+        np.equal(ref_b, ref_e),
+        np.equal(alt_b, alt_e)
+        ]
     ),
     barcodes["lineage"],
 )
