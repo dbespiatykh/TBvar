@@ -107,4 +107,13 @@ tags
 .history
 .ionide
 
+### Snakemake ###
+.snakemake*
+BAM*
+VCF*
+logs*
+ref*
+results*
+stats*
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,sublimetext,vim
