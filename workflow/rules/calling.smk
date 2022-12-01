@@ -22,7 +22,7 @@ rule gatk_haplotype_caller:
 ## Import gVCFs to GenomicsDB
 rule gatk_genomics_db_import:
     input:
-        gvcfs=expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index),
+        gvcfs=[expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index), config["files"]["dummy"]],
     output:
         db=temp(directory("VCF/db")),
     log:
@@ -85,7 +85,7 @@ rule gatk_left_align_and_trim_variants:
     shell:
         "gatk LeftAlignAndTrimVariants \
         -V {input.vcf} \
-        -O {output.tab} \
+        -O {output.vcf} \
         -R {input.ref} \
         --split-multi-allelics 2> {log}"
 
