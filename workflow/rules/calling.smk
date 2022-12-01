@@ -22,7 +22,7 @@ rule gatk_haplotype_caller:
 ## Import gVCFs to GenomicsDB
 rule gatk_genomics_db_import:
     input:
-        gvcfs=expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index),
+        gvcfs=[expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index), config["files"]["dummy"]],
     output:
         db=temp(directory("VCF/db")),
     log:
@@ -71,10 +71,29 @@ rule gatk_filter_variants:
         "v1.7.1/bio/gatk/variantfiltration"
 
 
+## Split deletions and snps from single position
+rule gatk_left_align_and_trim_variants:
+    input:
+        vcf="VCF/all.filtered.vcf.gz",
+        ref="ref/NC_000962.3.fa",
+    output:
+        vcf="VCF/all.filtered.trimmed.vcf.gz",
+    conda:
+        "../envs/gatk4.yaml"
+    log:
+        "logs/gatk/leftalingandtrim/leftalingandtrim.log",
+    shell:
+        "gatk LeftAlignAndTrimVariants \
+        -V {input.vcf} \
+        -O {output.vcf} \
+        -R {input.ref} \
+        --split-multi-allelics 2> {log}"
+
+
 ## Select only PASS SNPs
 rule gatk_select_variants:
     input:
-        vcf="VCF/all.filtered.vcf.gz",
+        vcf="VCF/all.filtered.trimmed.vcf.gz",
         ref="ref/NC_000962.3.fa",
     output:
         vcf="VCF/all.snps.pass.vcf.gz",

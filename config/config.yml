@@ -3,6 +3,7 @@
 files:
   samples: config/samples.tsv # The path to the tab-separated values file containing the paths to the analysed samples
   barcodes: workflow/barcodes/barcodes.tsv # A tab-separated values file with barcoding SNPs
+  dummy: workflow/barcodes/dummy.g.vcf.gz # A dummy vcf for lineage 4 barcoding
 
 NCBI:
   email: user@mail.com # Email required by NCBI to avoid abuse
