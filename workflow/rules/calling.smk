@@ -22,7 +22,10 @@ rule gatk_haplotype_caller:
 ## Import gVCFs to GenomicsDB
 rule gatk_genomics_db_import:
     input:
-        gvcfs=[expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index), config["files"]["dummy"]],
+        gvcfs=[
+            expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index),
+            config["files"]["dummy"],
+        ],
     output:
         db=temp(directory("VCF/db")),
     log:
