@@ -100,7 +100,7 @@ rule gatk_select_variants:
     log:
         "logs/gatk/select/snps.pass.log",
     params:
-        extra="--exclude-filtered --select-type-to-include SNP",
+        extra="--exclude-filtered --select-type-to-include SNP --exclude-sample-name Dummy",
     resources:
         mem_mb=config["GATK"]["select"]["memory"],
     wrapper:
