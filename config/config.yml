@@ -6,17 +6,18 @@ files:
   dummy: workflow/barcodes/dummy.g.vcf.gz # A dummy vcf for lineage 4 barcoding
 
 NCBI:
-  email: user@mail.com # Email required by NCBI to avoid abuse
+  H37Rv-reference-genome:
+    - NC_000962.3 # Mycobacterium tuberculosis H37Rv RefSeq accession number
 
 BWA:
-  threads: 2 # Threads for BWA-MEM
+  threads: 8 # Threads for BWA-MEM
 
 GATK:
   markdup:
     memory: 1024 # Memory for Picard MarkDuplicates in mb
   hapcall:
-    memory: 1024 # Memory for GATK HaplotypeCaller in mb
-    threads: 2 # Threads for GATK HaplotypeCaller in mb
+    memory: 10240 # Memory for GATK HaplotypeCaller in mb
+    threads: 8 # Threads for GATK HaplotypeCaller in mb
   gendb:
     memory: 10240 # Memory for GATK GenomicsDBImport in mb
   genotype:
