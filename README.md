@@ -1,10 +1,9 @@
-- [Description](#description)
+<img align ="left" src=logo.svg width=250px style="padding-right: 25px; padding-top: 25px;">
+
+# A snakemake workflow for variant calling and lineage barcoding of the _Mycobacterium tuberculosis_ samples.
+
 - [Installation](#installation)
 - [Usage](#usage)
-
-## Description
-
-A snakemake workflow for variant calling and lineage barcoding of the _Mycobacterium tuberculosis_ samples.
 
 ## Installation
 
