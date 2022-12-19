@@ -7,7 +7,7 @@ rule gatk_haplotype_caller:
         fai="ref/NC_000962.3.fa.fai",
         dic="ref/NC_000962.3.dict",
     output:
-        gvcf="VCF/gVCF/{sample}.g.vcf.gz",
+        gvcf=temp("VCF/gVCF/{sample}.g.vcf.gz"),
     log:
         "logs/gatk/haplotypecaller/{sample}.log",
     params:
@@ -46,7 +46,7 @@ rule gatk_genotype_gvcfs:
         genomicsdb="VCF/db",
         ref="ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.vcf.gz",
+        vcf=temp("VCF/all.vcf.gz"),
     log:
         "logs/gatk/genotypegvcfs.log",
     params:
@@ -63,7 +63,7 @@ rule gatk_filter_variants:
         vcf="VCF/all.vcf.gz",
         ref="ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.filtered.vcf.gz",
+        vcf=temp("VCF/all.filtered.vcf.gz"),
     log:
         "logs/gatk/filter/snps.filter.log",
     params:
@@ -80,7 +80,7 @@ rule gatk_left_align_and_trim_variants:
         vcf="VCF/all.filtered.vcf.gz",
         ref="ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.filtered.trimmed.vcf.gz",
+        vcf=temp("VCF/all.filtered.trimmed.vcf.gz"),
     conda:
         "../envs/gatk4.yaml"
     log:
