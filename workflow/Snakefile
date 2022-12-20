@@ -6,7 +6,8 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "results/all.snps.pass.barcoded.tsv",
+        "results/samples.barcoded.snps.tsv",
+        "results/samples.barcoded.levels.tsv",
 
 
 ## Workflow rules --------------------------------------------

@@ -1,0 +1,4 @@
+Run_accession	R1	R2
+L1	reads/lineage1_1.fastq.gz	reads/lineage1_2.fastq.gz
+L2	reads/lineage2_1.fastq.gz	reads/lineage2_2.fastq.gz
+L4	reads/lineage4_1.fastq.gz	reads/lineage4_2.fastq.gz

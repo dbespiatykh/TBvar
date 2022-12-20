@@ -2,21 +2,24 @@
 
 files:
   samples: config/samples.tsv # The path to the tab-separated values file containing the paths to the analysed samples
-  barcodes: workflow/barcodes/barcodes.tsv # A tab-separated values file with barcoding SNPs
-  dummy: workflow/barcodes/dummy.g.vcf.gz # A dummy vcf for lineage 4 barcoding
+  barcodes: resources/barcodes.tsv # A tab-separated values file with barcoding SNPs
+  dummy: resources/dummy.g.vcf.gz # A dummy vcf for lineage 4 barcoding
+  levels: resources/levels.txt # File with levels barcodes
+  intervals: resources/intervals.bed # BED file with intervals of interest
 
 NCBI:
-  email: user@mail.com # Email required by NCBI to avoid abuse
+  H37Rv-reference-genome:
+    - NC_000962.3 # Mycobacterium tuberculosis H37Rv RefSeq accession number
 
 BWA:
-  threads: 2 # Threads for BWA-MEM
+  threads: 8 # Threads for BWA-MEM
 
 GATK:
   markdup:
     memory: 1024 # Memory for Picard MarkDuplicates in mb
   hapcall:
-    memory: 1024 # Memory for GATK HaplotypeCaller in mb
-    threads: 2 # Threads for GATK HaplotypeCaller in mb
+    memory: 10240 # Memory for GATK HaplotypeCaller in mb
+    threads: 8 # Threads for GATK HaplotypeCaller in mb
   gendb:
     memory: 10240 # Memory for GATK GenomicsDBImport in mb
   genotype:

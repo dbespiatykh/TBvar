@@ -1,13 +1,13 @@
 ## Call variants
 rule gatk_haplotype_caller:
     input:
-        bam="BAM/{sample}.bam",
-        idx="BAM/{sample}.bam.bai",
-        ref="ref/NC_000962.3.fa",
-        fai="ref/NC_000962.3.fa.fai",
-        dic="ref/NC_000962.3.dict",
+        bam="results/BAM/{sample}.bam",
+        idx="results/BAM/{sample}.bam.bai",
+        ref="resources/ref/NC_000962.3.fa",
+        fai="resources/ref/NC_000962.3.fa.fai",
+        dic="resources/ref/NC_000962.3.dict",
     output:
-        gvcf="VCF/gVCF/{sample}.g.vcf.gz",
+        gvcf="results/VCF/gVCF/{sample}.g.vcf.gz",
     log:
         "logs/gatk/haplotypecaller/{sample}.log",
     params:
@@ -16,15 +16,18 @@ rule gatk_haplotype_caller:
     resources:
         mem_mb=config["GATK"]["hapcall"]["memory"],
     wrapper:
-        "v1.7.1/bio/gatk/haplotypecaller"
+        "v1.21.0/bio/gatk/haplotypecaller"
 
 
 ## Import gVCFs to GenomicsDB
 rule gatk_genomics_db_import:
     input:
-        gvcfs=[expand("VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index), config["files"]["dummy"]],
+        gvcfs=[
+            expand("results/VCF/gVCF/{sample}.g.vcf.gz", sample=samples.index),
+            config["files"]["dummy"],
+        ],
     output:
-        db=temp(directory("VCF/db")),
+        db=temp(directory("results/VCF/db")),
     log:
         "logs/gatk/genomicsdbimport.log",
     params:
@@ -34,16 +37,16 @@ rule gatk_genomics_db_import:
     resources:
         mem_mb=config["GATK"]["gendb"]["memory"],
     wrapper:
-        "v1.7.1/bio/gatk/genomicsdbimport"
+        "v1.21.0/bio/gatk/genomicsdbimport"
 
 
 ## Genotype Variants
 rule gatk_genotype_gvcfs:
     input:
-        genomicsdb="VCF/db",
-        ref="ref/NC_000962.3.fa",
+        genomicsdb="results/VCF/db",
+        ref="resources/ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.vcf.gz",
+        vcf="results/VCF/all.vcf.gz",
     log:
         "logs/gatk/genotypegvcfs.log",
     params:
@@ -51,16 +54,16 @@ rule gatk_genotype_gvcfs:
     resources:
         mem_mb=config["GATK"]["genotype"]["memory"],
     wrapper:
-        "v1.7.1/bio/gatk/genotypegvcfs"
+        "v1.21.0/bio/gatk/genotypegvcfs"
 
 
 ## Filter SNPs
 rule gatk_filter_variants:
     input:
-        vcf="VCF/all.vcf.gz",
-        ref="ref/NC_000962.3.fa",
+        vcf="results/VCF/all.vcf.gz",
+        ref="resources/ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.filtered.vcf.gz",
+        vcf="results/VCF/all.filtered.vcf.gz",
     log:
         "logs/gatk/filter/snps.filter.log",
     params:
@@ -68,16 +71,16 @@ rule gatk_filter_variants:
     resources:
         mem_mb=config["GATK"]["filter"]["memory"],
     wrapper:
-        "v1.7.1/bio/gatk/variantfiltration"
+        "v1.21.0/bio/gatk/variantfiltration"
 
 
 ## Split deletions and snps from single position
 rule gatk_left_align_and_trim_variants:
     input:
-        vcf="VCF/all.filtered.vcf.gz",
-        ref="ref/NC_000962.3.fa",
+        vcf="results/VCF/all.filtered.vcf.gz",
+        ref="resources/ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.filtered.trimmed.vcf.gz",
+        vcf="results/VCF/all.filtered.trimmed.vcf.gz",
     conda:
         "../envs/gatk4.yaml"
     log:
@@ -93,24 +96,25 @@ rule gatk_left_align_and_trim_variants:
 ## Select only PASS SNPs
 rule gatk_select_variants:
     input:
-        vcf="VCF/all.filtered.trimmed.vcf.gz",
-        ref="ref/NC_000962.3.fa",
+        vcf="results/VCF/all.filtered.trimmed.vcf.gz",
+        ref="resources/ref/NC_000962.3.fa",
     output:
-        vcf="VCF/all.snps.pass.vcf.gz",
+        vcf="results/VCF/all.snps.pass.vcf.gz",
     log:
         "logs/gatk/select/snps.pass.log",
     params:
-        extra="--exclude-filtered --select-type-to-include SNP",
+        extra="--exclude-filtered --select-type-to-include SNP --exclude-sample-name Dummy",
     resources:
         mem_mb=config["GATK"]["select"]["memory"],
     wrapper:
-        "v1.7.1/bio/gatk/selectvariants"
+        "v1.21.0/bio/gatk/selectvariants"
 
 
 ## Refactor Variants to Table
 rule gatk_variants_to_table:
     input:
-        vcf="VCF/all.snps.pass.vcf.gz",
+        vcf="results/VCF/all.snps.pass.vcf.gz",
+        intervals=config["files"]["intervals"],
     output:
         tab="results/all.snps.pass.txt",
     conda:
@@ -121,6 +125,8 @@ rule gatk_variants_to_table:
         "gatk VariantsToTable \
         -V {input.vcf} \
         -O {output.tab} \
+        --intervals {input.intervals} \
+        --interval-padding 1 \
         -F POS \
         -F REF \
         -GF GT 2> {log}"

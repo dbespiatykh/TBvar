@@ -1,12 +1,13 @@
-- [Description](#description)
+<img align ="left" src=logo.svg width=250px style="padding-right: 25px; padding-top: 25px;">
+
+# A snakemake workflow for variant calling and lineage barcoding of the _Mycobacterium tuberculosis_ samples
+
 - [Installation](#installation)
 - [Usage](#usage)
 
-## Description
-
-A snakemake workflow for variant calling and lineage barcoding of the _Mycobacterium tuberculosis_ samples.
-
 ## Installation
+
+The usage of this workflow is described in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog/?usage=dbespiatykh/TBvar), alternatively it can be installed as described below.
 
 Use the [Conda](https://docs.conda.io/en/latest/) package manager and [BioConda](https://bioconda.github.io/index.html) channel to install TBvar.
 
