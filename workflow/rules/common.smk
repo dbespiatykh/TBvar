@@ -1,8 +1,8 @@
 import pandas as pd
-
+from snakemake.utils import validate
 
 configfile: "config/config.yml"
-
+validate(config, schema="../schemas/config.schema.yaml")
 
 samples = (
     pd.read_csv(
@@ -13,7 +13,7 @@ samples = (
     .set_index(["Run_accession"], drop=False)
     .sort_index()
 )
-
+validate(samples, schema="../schemas/samples.schema.yaml")
 
 def get_fastq(wildcards):
     sample = samples.loc[wildcards.sample]
