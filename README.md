@@ -2,6 +2,9 @@
 
 # A snakemake workflow for variant calling and lineage barcoding of the _Mycobacterium tuberculosis_ samples
 
+[![Snakemake](https://img.shields.io/badge/snakemake-≥7.18.2-brightgreen.svg)](https://snakemake.github.io)
+[![Tests](https://github.com/dbespiatykh/TBvar/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/dbespiatykh/TBvar/actions/workflows/main.yml)
+
 - [Installation](#installation)
 - [Usage](#usage)
 
