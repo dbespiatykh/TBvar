@@ -1,5 +1,8 @@
 import pandas as pd
 from snakemake.utils import validate
+from snakemake.utils import min_version
+
+min_version("7.18.2")
 
 configfile: "config/config.yml"
 validate(config, schema="../schemas/config.schema.yaml")
