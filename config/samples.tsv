@@ -1,4 +1,4 @@
 Run_accession	R1	R2
-SRR2024996	/path/to/SRR2024996_1.fastq.gz	/path/to/SRR2024996_2.fastq.gz
-SRR2024925	/path/to/SRR2024925_1.fastq.gz	/path/to/SRR2024925_2.fastq.gz
-SRR12882189	/path/to/SRR12882189.fastq.gz	
+L1	.test/reads/lineage1_1.fastq.gz	.test/reads/lineage1_2.fastq.gz
+L2	.test/reads/lineage2_1.fastq.gz	.test/reads/lineage2_2.fastq.gz
+L4	.test/reads/lineage4_1.fastq.gz	.test/reads/lineage4_2.fastq.gz
