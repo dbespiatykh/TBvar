@@ -4,6 +4,8 @@ files:
   samples: config/samples.tsv # The path to the tab-separated values file containing the paths to the analysed samples
   barcodes: resources/barcodes.tsv # A tab-separated values file with barcoding SNPs
   dummy: resources/dummy.g.vcf.gz # A dummy vcf for lineage 4 barcoding
+  levels: resources/levels.txt # File with levels barcodes
+  intervals: resources/intervals.bed # BED file with intervals of interest
 
 NCBI:
   H37Rv-reference-genome:
