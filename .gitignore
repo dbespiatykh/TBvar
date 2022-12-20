@@ -118,6 +118,6 @@ stats*
 config/.samples.tsv
 tests*
 logo.ai
-
+results
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,sublimetext,vim
