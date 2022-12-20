@@ -45,6 +45,8 @@ rule gatk_genotype_gvcfs:
     input:
         genomicsdb="results/VCF/db",
         ref="resources/ref/NC_000962.3.fa",
+        fai="resources/ref/NC_000962.3.fa.fai",
+        dic="resources/ref/NC_000962.3.dict",
     output:
         vcf="results/VCF/all.vcf.gz",
     log:
@@ -62,6 +64,8 @@ rule gatk_filter_variants:
     input:
         vcf="results/VCF/all.vcf.gz",
         ref="resources/ref/NC_000962.3.fa",
+        fai="resources/ref/NC_000962.3.fa.fai",
+        dic="resources/ref/NC_000962.3.dict",
     output:
         vcf="results/VCF/all.filtered.vcf.gz",
     log:
@@ -79,6 +83,8 @@ rule gatk_left_align_and_trim_variants:
     input:
         vcf="results/VCF/all.filtered.vcf.gz",
         ref="resources/ref/NC_000962.3.fa",
+        fai="resources/ref/NC_000962.3.fa.fai",
+        dic="resources/ref/NC_000962.3.dict",
     output:
         vcf="results/VCF/all.filtered.trimmed.vcf.gz",
     conda:
@@ -98,6 +104,8 @@ rule gatk_select_variants:
     input:
         vcf="results/VCF/all.filtered.trimmed.vcf.gz",
         ref="resources/ref/NC_000962.3.fa",
+        fai="resources/ref/NC_000962.3.fa.fai",
+        dic="resources/ref/NC_000962.3.dict",
     output:
         vcf="results/VCF/all.snps.pass.vcf.gz",
     log:
