@@ -2,9 +2,9 @@
 rule bwa_mem_mapping:
     input:
         reads=get_fastq,
-        idx=multiext("ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
+        idx=multiext("resources/ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        temp("BAM/{sample}.srt.bam"),
+        temp("results/BAM/{sample}.srt.bam"),
     log:
         "logs/bwa/mem/{sample}.log",
     params:
@@ -13,16 +13,16 @@ rule bwa_mem_mapping:
         sort_order="coordinate",
     threads: config["BWA"]["threads"]
     wrapper:
-        "v1.7.1/bio/bwa/mem"
+        "v1.21.0/bio/bwa/mem"
 
 
 ## Remove duplicated reads
 rule picard_mark_duplicates:
     input:
-        bams="BAM/{sample}.srt.bam",
+        bams="results/BAM/{sample}.srt.bam",
     output:
-        bam="BAM/{sample}.bam",
-        metrics="stats/picard/{sample}.metrics.txt",
+        bam="results/BAM/{sample}.bam",
+        metrics="results/stats/picard/{sample}.metrics.txt",
     log:
         "logs/picard/dedup/{sample}.log",
     params:
@@ -30,16 +30,16 @@ rule picard_mark_duplicates:
     resources:
         mem_mb=config["GATK"]["markdup"]["memory"],
     wrapper:
-        "v1.7.1/bio/picard/markduplicates"
+        "v1.21.0/bio/picard/markduplicates"
 
 
 ## Index BAM files
 rule samtools_index:
     input:
-        "BAM/{sample}.bam",
+        "results/BAM/{sample}.bam",
     output:
-        "BAM/{sample}.bam.bai",
+        "results/BAM/{sample}.bam.bai",
     log:
         "logs/samtools/index/{sample}.log",
     wrapper:
-        "v1.7.1/bio/samtools/index"
+        "v1.21.0/bio/samtools/index"
