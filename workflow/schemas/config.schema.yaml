@@ -1,0 +1,90 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: snakemake configuration file
+
+type: object
+
+properties:
+  files:
+    type: object
+    properties:
+      samples:
+        type: string
+      barcodes:
+        type: string
+      dummy:
+        type: string
+      levels:
+        type: string
+      intervals:
+        type: string
+    required:
+      - samples
+      - barcodes
+      - dummy
+      - levels
+      - intervals
+
+  NCBI:
+    type: object
+    properties:
+      H37Rv-reference-genome:
+        type: array
+        items:
+          type: string
+          default: "NC_000962.3"
+    required:
+      - H37Rv-reference-genome
+
+  BWA:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+    required:
+      - threads
+
+  GATK:
+    type: object
+    properties:
+      markdup:
+        memory:
+          type: integer
+          default: 1024
+      hapcall:
+        memory:
+          type: integer
+          default: 1024
+        threads:
+          type: integer
+          default: 1024
+      gendb:
+        memory:
+          type: integer
+          default: 1024
+      genotype:
+        memory:
+          type: integer
+          default: 1024
+      filter:
+        memory:
+          type: integer
+          default: 1024
+      select:
+        memory:
+          type: integer
+          default: 1024
+    required:
+      - markdup
+      - hapcall
+      - gendb
+      - genotype
+      - filter
+      - select
+
+required:
+  - files
+  - NCBI
+  - BWA
+  - GATK
