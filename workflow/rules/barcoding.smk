@@ -3,7 +3,11 @@ rule barcode_snps:
         "results/all.snps.pass.txt",
         config["files"]["barcodes"],
     output:
-        "results/samples.barcoded.snps.tsv",
+        report(
+            "results/samples.barcoded.snps.tsv",
+            caption="../report/barcoded_snps.rst",
+            category="Barcoding",
+        ),
     log:
         "logs/barcoding/barcoding_snps.log",
     conda:
@@ -11,12 +15,17 @@ rule barcode_snps:
     script:
         "../scripts/barcoding_snps.py"
 
+
 rule barcode_levels:
     input:
         "results/all.snps.pass.txt",
         config["files"]["levels"],
     output:
-        "results/samples.barcoded.levels.tsv",
+        report(
+            "results/samples.barcoded.levels.tsv",
+            caption="../report/barcoded_levels.rst",
+            category="Barcoding",
+        ),
     log:
         "logs/barcoding/barcoding_levels.log",
     conda:
