@@ -4,7 +4,13 @@ from snakemake.utils import min_version
 
 min_version("7.18.2")
 
+
 configfile: "config/config.yml"
+
+
+report: "../report/workflow.rst"
+
+
 validate(config, schema="../schemas/config.schema.yaml")
 
 samples = (
@@ -17,6 +23,7 @@ samples = (
     .sort_index()
 )
 validate(samples, schema="../schemas/samples.schema.yaml")
+
 
 def get_fastq(wildcards):
     sample = samples.loc[wildcards.sample]
