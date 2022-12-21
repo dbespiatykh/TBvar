@@ -1,0 +1,1 @@
+Cohort tab-separated file containing filtered SNP sites.

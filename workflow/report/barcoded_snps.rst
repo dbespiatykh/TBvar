@@ -1,0 +1,1 @@
+File contatining samples annotated with presense/absence of lineage specific SNPs.
