@@ -107,7 +107,11 @@ rule gatk_select_variants:
         fai="resources/ref/NC_000962.3.fa.fai",
         dic="resources/ref/NC_000962.3.dict",
     output:
-        vcf="results/VCF/all.snps.pass.vcf.gz",
+        vcf=report(
+            "results/VCF/all.snps.pass.vcf.gz",
+            caption="../report/vcf.rst",
+            category="SNPs",
+        ),
     log:
         "logs/gatk/select/snps.pass.log",
     params:
@@ -124,7 +128,11 @@ rule gatk_variants_to_table:
         vcf="results/VCF/all.snps.pass.vcf.gz",
         intervals=config["files"]["intervals"],
     output:
-        tab="results/all.snps.pass.txt",
+        tab=report(
+            "results/all.snps.pass.txt",
+            caption="../report/tab.rst",
+            category="SNPs",
+        ),
     conda:
         "../envs/gatk4.yaml"
     log:
