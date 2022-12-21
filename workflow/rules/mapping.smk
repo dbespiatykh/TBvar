@@ -2,7 +2,9 @@
 rule bwa_mem_mapping:
     input:
         reads=get_fastq,
-        idx=multiext("resources/ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"),
+        idx=multiext(
+            "resources/ref/NC_000962.3.fa", ".amb", ".ann", ".bwt", ".pac", ".sa"
+        ),
     output:
         temp("results/BAM/{sample}.srt.bam"),
     log:
