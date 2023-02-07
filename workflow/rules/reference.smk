@@ -22,7 +22,7 @@ rule samtools_genome_index:
     log:
         "logs/samtools/ref_index.log",
     wrapper:
-        "v1.21.0/bio/samtools/faidx"
+        "v1.23.0/bio/samtools/faidx"
 
 
 rule picard_create_dict:
@@ -35,7 +35,7 @@ rule picard_create_dict:
     resources:
         mem_mb=1024,
     wrapper:
-        "v1.21.0/bio/picard/createsequencedictionary"
+        "v1.23.0/bio/picard/createsequencedictionary"
 
 
 rule bwa_index:
@@ -50,4 +50,4 @@ rule bwa_index:
     params:
         algorithm="bwtsw",
     wrapper:
-        "v1.21.0/bio/bwa/index"
+        "v1.23.0/bio/bwa/index"
