@@ -15,33 +15,34 @@ rule bwa_mem_mapping:
         sort_order="coordinate",
     threads: config["BWA"]["threads"]
     wrapper:
-        "v1.21.0/bio/bwa/mem"
+        "v1.23.0/bio/bwa/mem"
 
 
 ## Remove duplicated reads
-rule picard_mark_duplicates:
+rule sambamba_mark_duplicates:
     input:
         bams="results/BAM/{sample}.srt.bam",
     output:
-        bam="results/BAM/{sample}.bam",
-        metrics="results/stats/picard/{sample}.metrics.txt",
-    log:
-        "logs/picard/dedup/{sample}.log",
+        bam=protected("results/BAM/{sample}.bam"),
     params:
-        "REMOVE_DUPLICATES=true",
-    resources:
-        mem_mb=config["GATK"]["markdup"]["memory"],
+        extra="-r",
+    log:
+        "logs/sambamba-markdup/{sample}.log",
+    threads: config["SAMBAMBA"]["threads"]
     wrapper:
-        "v1.21.0/bio/picard/markduplicates"
+        "v1.23.0/bio/sambamba/markdup"
 
 
 ## Index BAM files
-rule samtools_index:
+rule sambamba_index:
     input:
         "results/BAM/{sample}.bam",
     output:
         "results/BAM/{sample}.bam.bai",
+    params:
+         extra="",
     log:
-        "logs/samtools/index/{sample}.log",
+        "logs/sambamba-index/{sample}.log",
+    threads: config["SAMBAMBA"]["threads"]
     wrapper:
-        "v1.21.0/bio/samtools/index"
+        "v1.23.0/bio/sambamba/index"
