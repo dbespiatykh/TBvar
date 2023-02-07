@@ -14,6 +14,9 @@ NCBI:
 BWA:
   threads: 8 # Threads for BWA-MEM
 
+SAMBAMBA:
+  threads: 8 # Threads for Sambamba
+
 GATK:
   markdup:
     memory: 1024 # Memory for Picard MarkDuplicates in mb
@@ -28,3 +31,5 @@ GATK:
     memory: 10240 # Memory for GATK VariantFiltration in mb
   select:
     memory: 1024 # Memory for GATK SelectVariants in mb
+  trim:
+    memory: 2024 # Memory for GATK LeftAlignAndTrimVariants in mb
