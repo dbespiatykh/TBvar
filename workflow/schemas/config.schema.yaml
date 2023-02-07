@@ -45,6 +45,15 @@ properties:
     required:
       - threads
 
+  SAMBAMBA:
+    type: object
+    properties:
+      threads:
+        type: integer
+        default: 4
+    required:
+      - threads
+
   GATK:
     type: object
     properties:
@@ -75,6 +84,10 @@ properties:
         memory:
           type: integer
           default: 1024
+      trim:
+        memory:
+          type: integer
+          default: 1024
     required:
       - markdup
       - hapcall
@@ -82,9 +95,11 @@ properties:
       - genotype
       - filter
       - select
+      - trim
 
 required:
   - files
   - NCBI
   - BWA
+  - SAMBAMBA
   - GATK
