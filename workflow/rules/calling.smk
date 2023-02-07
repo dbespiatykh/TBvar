@@ -16,7 +16,7 @@ rule gatk_haplotype_caller:
     resources:
         mem_mb=config["GATK"]["hapcall"]["memory"],
     wrapper:
-        "v1.21.0/bio/gatk/haplotypecaller"
+        "v1.23.0/bio/gatk/haplotypecaller"
 
 
 ## Import gVCFs to GenomicsDB
@@ -37,7 +37,7 @@ rule gatk_genomics_db_import:
     resources:
         mem_mb=config["GATK"]["gendb"]["memory"],
     wrapper:
-        "v1.21.0/bio/gatk/genomicsdbimport"
+        "v1.23.0/bio/gatk/genomicsdbimport"
 
 
 ## Genotype Variants
@@ -56,7 +56,7 @@ rule gatk_genotype_gvcfs:
     resources:
         mem_mb=config["GATK"]["genotype"]["memory"],
     wrapper:
-        "v1.21.0/bio/gatk/genotypegvcfs"
+        "v1.23.0/bio/gatk/genotypegvcfs"
 
 
 ## Filter SNPs
@@ -75,7 +75,7 @@ rule gatk_filter_variants:
     resources:
         mem_mb=config["GATK"]["filter"]["memory"],
     wrapper:
-        "v1.21.0/bio/gatk/variantfiltration"
+        "v1.23.0/bio/gatk/variantfiltration"
 
 
 ## Split deletions and snps from single position
@@ -87,16 +87,14 @@ rule gatk_left_align_and_trim_variants:
         dic="resources/ref/NC_000962.3.dict",
     output:
         vcf="results/VCF/all.filtered.trimmed.vcf.gz",
-    conda:
-        "../envs/gatk4.yaml"
     log:
         "logs/gatk/leftalingandtrim/leftalingandtrim.log",
-    shell:
-        "gatk LeftAlignAndTrimVariants \
-        -V {input.vcf} \
-        -O {output.vcf} \
-        -R {input.ref} \
-        --split-multi-allelics 2> {log}"
+    params:
+        extra="--split-multi-allelics",
+    resources:
+        mem_mb=config["GATK"]["trim"]["memory"],
+    wrapper:
+        "v1.23.0/bio/gatk/leftalignandtrimvariants"
 
 
 ## Select only PASS SNPs
@@ -119,7 +117,7 @@ rule gatk_select_variants:
     resources:
         mem_mb=config["GATK"]["select"]["memory"],
     wrapper:
-        "v1.21.0/bio/gatk/selectvariants"
+        "v1.23.0/bio/gatk/selectvariants"
 
 
 ## Refactor Variants to Table
@@ -133,16 +131,9 @@ rule gatk_variants_to_table:
             caption="../report/tab.rst",
             category="SNPs",
         ),
-    conda:
-        "../envs/gatk4.yaml"
+    params:
+        extra="--interval-padding 1 -F POS -F REF -GF GT",
     log:
         "logs/gatk/vartotable/vars2table.log",
-    shell:
-        "gatk VariantsToTable \
-        -V {input.vcf} \
-        -O {output.tab} \
-        --intervals {input.intervals} \
-        --interval-padding 1 \
-        -F POS \
-        -F REF \
-        -GF GT 2> {log}"
+    wrapper:
+        "v1.23.0/bio/gatk/variantstotable"
