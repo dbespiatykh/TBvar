@@ -4,7 +4,6 @@ from collections import OrderedDict
 
 
 def get_levels_dictionary(levels):
-
     temp_df = pd.read_csv(levels, sep="\t")
     uniqueLevels = temp_df["level"].unique()
     levelsDict = {elem: pd.DataFrame() for elem in uniqueLevels}
@@ -130,7 +129,6 @@ def count_level2_variants(myList):
 
 
 def lineage2_decision(myList):
-
     lin2 = ["L2.2 (modern)", "L2.2 (ancient)"]
     altList = []
 
@@ -140,6 +138,38 @@ def lineage2_decision(myList):
             item.append("L2.2 (modern)")
         else:
             item = item
+
+        altList.append(item)
+
+    return altList
+
+
+def lineage4_decision(call_list):
+    lin4 = ["L4"]
+    altList = []
+
+    for item in call_list:
+        if any(i in item for i in lin4):
+            item = [x for x in item if x not in lin4]
+
+        else:
+            item.extend(["L4" for i in range(2)])
+
+        altList.append(item)
+
+    return altList
+
+
+def lineage4_9_decision(call_list):
+    lin4_9 = ["L4.9"]
+    altList = []
+
+    for item in call_list:
+        if any(i in item for i in lin4_9):
+            item = [x for x in item if x not in lin4_9]
+
+        else:
+            item.extend(["L4.9" for i in range(2)])
 
         altList.append(item)
 
@@ -223,6 +253,8 @@ def barcoding(input_file, levels_file):
     df2 = df.copy()
     df2["level_1"] = df2["level_1"].str.split(",")
     df2["level_2"] = df2["level_2"].str.split(",")
+    df2["level_1"] = lineage4_decision(df2["level_1"])
+    df2["level_2"] = lineage4_9_decision(df2["level_2"])
     df2["level_1"] = [count_level1_variants(item) for item in df2["level_1"]]
     df2["level_2"] = [count_level2_variants(item) for item in df2["level_2"]]
     df2["level_2"] = lineage2_decision(df2["level_2"])
