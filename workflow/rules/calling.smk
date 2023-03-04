@@ -7,7 +7,7 @@ rule gatk_haplotype_caller:
         fai="resources/ref/NC_000962.3.fa.fai",
         dic="resources/ref/NC_000962.3.dict",
     output:
-        gvcf="results/VCF/gVCF/{sample}.g.vcf.gz",
+        gvcf=protected("results/VCF/gVCF/{sample}.g.vcf.gz"),
     log:
         "logs/gatk/haplotypecaller/{sample}.log",
     params:
