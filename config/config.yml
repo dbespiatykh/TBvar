@@ -32,4 +32,4 @@ GATK:
   select:
     memory: 1024 # Memory for GATK SelectVariants in mb
   trim:
-    memory: 2024 # Memory for GATK LeftAlignAndTrimVariants in mb
+    memory: 1024 # Memory for GATK LeftAlignAndTrimVariants in mb
