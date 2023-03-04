@@ -24,6 +24,7 @@ rule sambamba_mark_duplicates:
         bams="results/BAM/{sample}.srt.bam",
     output:
         bam=protected("results/BAM/{sample}.bam"),
+        idx=protected("results/BAM/{sample}.bam.bai"),
     params:
         extra="-r",
     log:
@@ -31,18 +32,3 @@ rule sambamba_mark_duplicates:
     threads: config["SAMBAMBA"]["threads"]
     wrapper:
         "v1.23.0/bio/sambamba/markdup"
-
-
-## Index BAM files
-rule sambamba_index:
-    input:
-        "results/BAM/{sample}.bam",
-    output:
-        "results/BAM/{sample}.bam.bai",
-    params:
-         extra="",
-    log:
-        "logs/sambamba-index/{sample}.log",
-    threads: config["SAMBAMBA"]["threads"]
-    wrapper:
-        "v1.23.0/bio/sambamba/index"
