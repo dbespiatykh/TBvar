@@ -25,3 +25,11 @@ If samples are PE:
 If samples are SE:
 
 - Only `R1` column should have the path to the SE reads file.
+
+You can use the following code to create `samples.tsv` file:
+
+```bash
+for f in path/to/fastq/dir/*_1.fastq.gz; do printf '%s\t%s\t%s\n' "$(basename "$f" _1.fastq.gz)" "$f" "${f%_1.fastq.gz}_2.fastq.gz"; done | sed -E -e '1iRun_accession\tR1\tR2' > samples.tsv
+```
+
+Replace `path/to/fast/dir/` with the path to your directory containing FASTQ files, and `_1` and `_2` if you read suffixes are different.
